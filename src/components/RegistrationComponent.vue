@@ -7,7 +7,7 @@
                 <input type="text" value="+7" class="border bg-transparent border-gray-200 px-4 py-2 rounded-xl w-[62px] h-[50px] text-center outline-none" disabled>
                 <input type="text" ref="phoneInput" placeholder="Номер телефона" class="border bg-transparent border-gray-200 px-4 py-2 rounded-xl  h-[50px] text-left outline-none">
             </div>
-            <button class="bg-[#2c50cc] text-white text-base w-[300px] h-[50px] font-bold rounded-lg">Войти</button>
+            <button class="bg-[#2c50cc] text-white text-base w-[300px] h-[50px] font-bold rounded-lg" @click="login">Войти</button>
             <div class="flex w-[300px] justify-between items-center [&>hr]:w-full gap-3 [&>hr]:h-[5px]">
                  <hr> 
                     <span class="text-base w-full whitespace-nowrap">Войдите с помощью</span>
@@ -20,13 +20,13 @@
              [&>button>img]:w-[20px] ">
             <button class="border-black hover:bg-black"><img src="/social/google.svg" alt="">Google</button>
             <button class="border-[#0077ff] hover:bg-[#0077ff]"><img src="/social/vk.svg" alt="">VK</button>
-            <button class="border-[#34a7e4] hover:bg-[#34a7e4]"><img src="/social/tg.svg" alt="">Telegram</button>
+            <button class="border-[#34a7e4] hover:bg-[#34a7e4]" @click="onTelegramAuth()"><img src="/social/tg.svg" alt="">Telegram</button>
             </div>
             <a class="absolute bottom-5 right-1/2 translate-x-1/2 whitespace-nowrap text-[#6d6d6d] underline" href="#/">Пользовательское соглашение </a>
         </div>
     </div>
 </template>
-
+ 
 
 <script setup>
 import { onMounted, ref } from 'vue';
@@ -39,6 +39,10 @@ onMounted(() => {
     const mask = IMask(phoneInput.value, {
         mask: '(000) 000-00-00'
     });
-
 });
+ 
+const login = () => {
+    document.location.href = '#/home';
+}
+
 </script>
