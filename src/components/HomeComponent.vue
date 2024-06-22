@@ -1,8 +1,8 @@
 <template>
-    <div class="w-full min-h-full bg-gray-100 p-12 flex gap-8 flex-col justify-start items-center ">
+    <div class="w-full  bg-gray-100 p-12 flex gap-8 flex-col justify-start items-center ">
         <div class="w-full h-[40px] flex justify-between  [&>div]:gap-3.5 [&>div>*]:items-center ">
             <div class="flex">
-                <span class="flex items-center gap-2 bg-[#f8f9fb] px-3 py-1 rounded-xl">
+                <span class="flex items-center gap-2 bg-[#f8f9fb] px-3 py-1 rounded-xl whitespace-nowrap">
                     <img src="/account.svg" alt="" class="w-[12px]">
                     {{ name }}
                 </span>
@@ -21,9 +21,9 @@
             </div>
             <div
                 class="flex md:hidden [&>button]:border [&>button]:rounded-xl [&>button]:px-3 [&>button]:py-1 [&>button]:transition [&>button]:duration-500 ">
-                <button class="border-[#05f] hover:text-white hover:bg-[#05f]  bg-[#f8f9fb] text-[#05f]  [&:hover>svg>path]:stroke-[#fff] [&:hover>svg>path]:transition &[&:hover>svg>g>path]:duration-500">
-                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
+                <button
+                    class="border-[#05f] hover:text-white hover:bg-[#05f]  bg-[#f8f9fb] text-[#05f]  [&:hover>svg>path]:stroke-[#fff] [&:hover>svg>path]:transition &[&:hover>svg>g>path]:duration-500">
+                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd"
                             d="M12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9ZM11 12C11 11.4477 11.4477 11 12 11C12.5523 11 13 11.4477 13 12C13 12.5523 12.5523 13 12 13C11.4477 13 11 12.5523 11 12Z"
                             fill="#05f" />
@@ -45,7 +45,7 @@
                 </button>
             </div>
         </div>
-        <span class="text-5xl w-full">Список задач</span>
+        <span class="text-5xl w-full whitespace-nowrap max-[970px]:text-center max-[970px]:text-3xl">Список задач</span>
         <div class="flex justify-center w-full flex-wrap  gap-8">
             <AnswerComponent name="Задача Intern SA [ERD]" type="ER-Diagramm" time="2 часа назад" />
             <AnswerComponent name="Задача Intern SA [ERD]" type="ER-Diagramm" time="2 часа назад" />
