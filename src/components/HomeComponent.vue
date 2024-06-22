@@ -5,6 +5,7 @@
                 <span class="flex items-center gap-2 bg-[#f8f9fb] px-3 py-1 rounded-xl whitespace-nowrap">
                     <img src="/account.svg" alt="" class="w-[12px]">
                     {{ name }}
+                    <img src="/edit.svg" alt="" class="w-[22px] block md:hidden ">
                 </span>
                 <span class="underline text-[#999] hidden md:flex ">
                     Изменить профиль
@@ -47,6 +48,10 @@
         </div>
         <span class="text-5xl w-full whitespace-nowrap max-[970px]:text-center max-[970px]:text-3xl">Список задач</span>
         <div class="flex justify-center w-full flex-wrap  gap-8">
+            <AnswerComponent name="Задача Intern SA [ERD]" type="ER-Diagramm" time="2 часа назад" />
+            <AnswerComponent name="Задача Intern SA [ERD]" type="ER-Diagramm" time="2 часа назад" />
+            <AnswerComponent name="Задача Intern SA [ERD]" type="ER-Diagramm" time="2 часа назад" />
+            <AnswerComponent name="Задача Intern SA [ERD]" type="ER-Diagramm" time="2 часа назад" />
             <AnswerComponent name="Задача Intern SA [ERD]" type="ER-Diagramm" time="2 часа назад" />
             <AnswerComponent name="Задача Intern SA [ERD]" type="ER-Diagramm" time="2 часа назад" />
             <AnswerComponent name="Задача Intern SA [ERD]" type="ER-Diagramm" time="2 часа назад" />

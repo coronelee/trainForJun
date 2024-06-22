@@ -2,8 +2,23 @@
     <header
         class="w-full h-[75px] z-10 bg-white flex justify-between items-center px-12 max-[600px]:px-5 border-b border-gray-300">
         <img src="/logo.png" alt="" class="h-[75px]">
-        <div class="flex gap-10 font-bold max-[600px]:hidden">
-            <button>Контакты</button><button>Поддержка</button><button>О нас</button>
+        <div
+            class="flex gap-10 font-bold max-[600px]:hidden
+        [&>button:hover>div]:w-[100%]
+        [&>button>div]:transition-all [&>button>div]:duration-500 [&>button>div]:w-0 [&>button>div]:h-[1px] [&>button>div]:bg-[#000]">
+            <button>
+                Контакты
+                <div></div>
+            </button>
+            <button>
+                Поддержка
+                <div></div>
+            </button>
+            <button>
+                О нас
+                <div></div>
+
+            </button>
         </div>
         <div class="flex flex-col  gap-1 font-bold min-[600px]:hidden [&>div]:w-[40px] [&>div]:h-[3px] [&>div]:bg-[#2c50cc]"
             @click="openHamburger">
