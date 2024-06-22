@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="w-screen h-auto min-h-[100vh] flex flex-col overflow-x-hidden">
+  <div id="app" class="w-screen h-screen flex flex-col overflow-x-hidden">
     <HeaderComponent :openHamburger="openHamburger" />
     <component :is="currentView" />
     <div v-if="hamburger" class="w-screen h-screen bg-[#fffce] gap-9 backdrop-blur fixed left-0 bottom-0 right-0 flex flex-col justify-center items-center
