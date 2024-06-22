@@ -1,10 +1,10 @@
 <template>
-  <div id="app" class="w-screen h-screen flex flex-col overflow-x-hidden">
+  <div id="app" class="w-screen h-auto flex flex-col overflow-x-hidden">
     <HeaderComponent :openHamburger="openHamburger" />
     <component :is="currentView" />
-    <div v-if="hamburger"
-      class="w-screen h-screen bg-green-100 fixed  left-0 bottom-0 right-0 flex justify-center items-center"
-      @click="openHamburger">
+    <div v-if="hamburger" class="w-screen h-screen bg-[#fffce] gap-9 backdrop-blur fixed left-0 bottom-0 right-0 flex flex-col justify-center items-center
+      [&>a]:text-[#6d6d6d] [&>a]:text-2xl [&>a]:font-bold [&>a]:transition-all [&>a]:duration-300">
+      <a href="">Контакты</a><a href="">Поддержка</a><a href="">О нас</a>
     </div>
   </div>
 </template>
@@ -20,6 +20,7 @@ const hamburger = ref(false);
 
 const openHamburger = () => {
   hamburger.value = !hamburger.value;
+  document.body.classList.toggle('overflow-hidden');
 }
 
 

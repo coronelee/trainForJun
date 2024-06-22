@@ -66,7 +66,8 @@ const sendCode = () => {
 
 const nextInput = (value) => {
     if (value === 'enter') {
-        alert('code sent');
+        alert('tipa code sent');
+        document.location.href = '#/home';
         return;
     }
     const element = document.getElementById(`code${value}`);
