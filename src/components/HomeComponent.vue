@@ -1,5 +1,67 @@
 <template>
+    <div class="absolute h-full w-full  flex justify-center items-center px-3 backdrop-blur-sm  animate-[openModal_0.5s_ease-in-out]"
+        v-if="modalCreateTask">
+        <div
+            class="w-[500px] overflow-hidden p-3 relative bg-white bg-[#05f] rounded-xl flex gap-3 flex-col justify-start items-start drop-shadow-lg ">
+
+            <span class="text-2xl w-full">Создать задачу</span>
+            <span class="text-base text-[#999] w-full">Выберите одну из следующий категорий для вашего задания</span>
+            <div>
+                <form
+                    class="flex gap-3 flex-col mb-3 [&>span]:w-full [&>span]:flex [&>span]:gap-2 [&>span]:items-center">
+                    <span>
+                        <input type="radio" id="SEQ" name="type" value="SEQ">
+                        <span>
+                            SEQ (последовательность)
+                        </span>
+                    </span>
+                    <span>
+                        <input type="radio" id="task" name="type" value="task">
+                        <span>
+                            TASK (задача)
+                        </span>
+                    </span><span>
+                        <input type="radio" id="userStory" name="type" value="userStory">
+                        <span>
+                            USER STORY (пользовательская история)
+                        </span>
+                    </span><span>
+                        <input type="radio" id="code" name="type" value="code">
+                        <span>
+                            CODE (код)
+                        </span>
+                    </span><span>
+                        <input type="radio" id="userFlow" name="type" value="userFlow">
+                        <span>
+                            USER FLOW (поток пользователя)
+                        </span>
+                    </span><span>
+                        <input type="radio" id="erd" name="type" value="erd">
+                        <span>
+                            ERD (схема базы данных)
+                        </span>
+                    </span><span>
+                        <input type="radio" id="arch" name="type" value="arch">
+                        <span>
+                            ARCH (архитектура)
+                        </span>
+                    </span>
+                </form>
+            </div>
+            <div class="absolute bottom-0 left-0 bg-[#f3f5f7] h-[50px] w-full flex gap-3 justify-end px-3 items-center
+            [&>button]:px-3 [&>button]:py-1 [&>button]:rounded-lg">
+                <button class="bg-white" @click="modalCreateTaskOpen">
+                    Отмена
+                </button>
+                <button class="bg-[#05f] text-white">
+                    Создать
+                </button>
+            </div>
+
+        </div>
+    </div>
     <div class="w-full  bg-gray-100 p-12 flex gap-8 flex-col justify-start items-center ">
+
         <div class="w-full h-[40px] flex justify-between  [&>div]:gap-3.5 [&>div>*]:items-center ">
             <div class="flex">
                 <span class="flex items-center gap-2 bg-[#f8f9fb] px-3 py-1 rounded-xl whitespace-nowrap">
@@ -16,9 +78,11 @@
                 <button class="border-[#05f] hover:text-white hover:bg-[#05f]  bg-[#f8f9fb] text-[#05f]">
                     Свободный режим
                 </button>
-                <button class="bg-[#05f] text-white hover:border-[#05f] hover:bg-[#f8f9fb] hover:text-[#05f] ">
+                <button class="bg-[#05f] text-white hover:border-[#05f] hover:bg-[#f8f9fb] hover:text-[#05f]"
+                    @click="modalCreateTaskOpen">
                     Создать задачу
                 </button>
+
             </div>
             <div
                 class="flex md:hidden [&>button]:border [&>button]:rounded-xl [&>button]:px-3 [&>button]:py-1 [&>button]:transition [&>button]:duration-500 ">
@@ -33,7 +97,7 @@
                             fill="#05f" />
                     </svg>
                 </button>
-                <button id="addTask"
+                <button id="addTask" @click="modalCreateTaskOpen"
                     class="bg-[#05f] text-white hover:border-[#05f] hover:bg-[#f8f9fb] hover:text-[#05f] [&:hover>svg>g>path]:stroke-[#05f] [&:hover>svg>g>path]:transition &[&:hover>svg>g>path]:duration-500">
                     <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g id="SVGRepo_bgCarrier" stroke-width="0" />
@@ -64,6 +128,9 @@
 import { ref } from "vue";
 import AnswerComponent from "./AnswerComponent.vue";
 const name = ref('Bogomdan K.');
-
+const modalCreateTask = ref(false);
+const modalCreateTaskOpen = () => {
+    modalCreateTask.value = !modalCreateTask.value
+}
 
 </script>

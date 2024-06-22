@@ -3,17 +3,21 @@
         <div
             class="h-full max-[500px]:w-full w-[450px] relative bg-white min-[500px]:rounded-3xl min-[500px]:drop-shadow-lg flex flex-col gap-3 items-center justify-center">
             <b class="text-2xl">Вход или регистрация</b>
-            <span class="text-base">{{ sendCodeValue ? 'Введите последние 4 цифры' : 'На этот номер поступит звонок'
-                }}</span>
-            <div class="flex gap-2 w-[300px] justify-between" v-if="!sendCodeValue">
-                <input type="text" value="+7"
+            <span class="text-base" v-if="!codeComplete">
+                {{
+                    sendCodeValue ? 'Введите последние 4 цифры' : 'На этот номер поступит звонок'
+                }}
+            </span>
+
+            <div class="flex gap-2 w-[300px] justify-between" v-if="!sendCodeValue && !codeComplete">
+                <input type="text" value="+7" inputmode="numeric"
                     class="border bg-transparent border-gray-200 px-4 py-2 rounded-xl w-[62px] h-[50px] text-center outline-none"
                     disabled>
-                <input type="text" ref="phoneInput" placeholder="Номер телефона"
+                <input type="text" inputmode="numeric" ref="phoneInput" placeholder="Номер телефона"
                     class="border bg-transparent border-gray-200 px-4 py-2 rounded-xl  h-[50px] text-left outline-none">
             </div>
             <div class="flex gap-2  [&>input]:w-[50px] [&>input]:h-[50px] juctify-center items-center [&>input]:border-b [&>input]:border-gray-900 [&>input]:outline-none [&>input]:text-center"
-                v-if="sendCodeValue">
+                v-if="sendCodeValue && !codeComplete">
                 <input type="text" inputmode="numeric" id="code1" @input="nextInput(2)" @keyup.delete="prevInput()"
                     placeholder="•" maxlength="1">
                 <input type="text" inputmode="numeric" id="code2" @input="nextInput(3)" @keyup.delete="prevInput(1)"
@@ -23,10 +27,18 @@
                 <input type="text" inputmode="numeric" id="code4" @input="nextInput('enter')"
                     @keyup.delete="prevInput(3)" placeholder="•" maxlength="1">
             </div>
-            <button class="bg-[#2c50cc] text-white text-base w-[300px] h-[50px] font-bold rounded-lg"
-                @click="sendCode">{{ sendCodeValue ? 'Войти' : 'Позвонить' }}
-            </button>
+            <div v-if="codeComplete"
+                class="flex flex-col gap-3 [&>input]:border-b [&>input]:px-4 [&>input]:outline-none  [&>input]:h-[50px]  [&>input]:w-[300px]">
+                <input type="text" placeholder="Имя">
+                <input type="text" placeholder="Фамилия">
 
+            </div>
+            <button class="bg-[#2c50cc] text-white text-base w-[300px] h-[50px] font-bold rounded-lg"
+                v-if="!codeComplete" @click="sendCode">{{ sendCodeValue ? 'Назад' : 'Войти' }}
+            </button>
+            <button class="bg-[#2c50cc] text-white text-base w-[300px] h-[50px] font-bold rounded-lg"
+                v-if="codeComplete" @click="regNewAcc">Зарегистрироваться
+            </button>
             <div class="flex w-[300px] justify-between items-center [&>hr]:w-full gap-3 [&>hr]:h-[5px]">
                 <hr>
                 <span class="text-base w-full whitespace-nowrap">Войдите с помощью</span>
@@ -54,6 +66,7 @@ import { onMounted, ref } from 'vue';
 import IMask from 'imask';
 const phoneInput = ref(null);
 const sendCodeValue = ref(false);
+const codeComplete = ref(false);
 import * as VKID from '@vkid/sdk';
 
 VKID.Config.set({
@@ -74,8 +87,8 @@ const sendCode = () => {
 
 const nextInput = (value) => {
     if (value === 'enter') {
-        alert('tipa code sent');
-        document.location.href = '#/home';
+        codeComplete.value = true;
+        sendCodeValue.value = false;
         return;
     }
     const element = document.getElementById(`code${value}`);
@@ -83,7 +96,9 @@ const nextInput = (value) => {
         element.focus();
     }
 }
-
+const regNewAcc = () => {
+    document.location.href = '#/home';
+}
 const prevInput = (value) => {
     const element = document.getElementById(`code${value}`);
     if (element) {
