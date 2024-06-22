@@ -1,6 +1,6 @@
 <template>
     <header
-        class="w-full h-[75px] z-10 bg-white flex justify-between items-center px-12 max-[600px]:px-5 border-b border-gray-300">
+        class="w-full font-nunito_bold h-[75px] z-10 bg-white flex justify-between items-center px-12 max-[600px]:px-5 border-b border-gray-300">
         <img src="/logo.png" alt="" class="h-[75px]">
         <div
             class="flex gap-10 font-bold max-[600px]:hidden

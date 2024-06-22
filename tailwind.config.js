@@ -12,6 +12,10 @@ export default {
         '100%': { opacity: 1 },
       },
     },
+    fontFamily: {
+      nunito_regular: ["NunitoRegular", "sans-serif"],
+      nunito_bold: ["NunitoBold", "sans-serif"],
+    },
   },
   plugins: [],
 }

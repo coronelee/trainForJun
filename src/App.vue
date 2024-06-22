@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="w-screen h-screen flex flex-col overflow-x-hidden">
+  <div id="app" class="w-screen h-screen flex flex-col overflow-x-hidden font-nunito_regular">
     <HeaderComponent :openHamburger="openHamburger" />
     <component :is="currentView" />
     <div v-if="hamburger" class="w-screen h-screen bg-[#fffce] gap-9 backdrop-blur fixed left-0 bottom-0 right-0 flex flex-col justify-center items-center
@@ -14,6 +14,7 @@
 import HeaderComponent from './components/global/HeaderComponent.vue'
 import RegistrationComponent from './components/RegistrationComponent.vue'
 import HomeComponent from './components/HomeComponent.vue'
+import CodeCreateComponent from './components/CreateTaskComponents/CodeCreateComponent.vue'
 import { ref, computed } from "vue";
 
 const hamburger = ref(false);
