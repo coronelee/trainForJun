@@ -14,10 +14,10 @@
             </div>
             <div class="flex gap-2  [&>input]:w-[50px] [&>input]:h-[50px] juctify-center items-center [&>input]:border-b [&>input]:border-gray-900 [&>input]:outline-none [&>input]:text-center"
                 v-if="sendCodeValue">
-                <input type="text" id="code1" @input="nextInput(2)" placeholder="•" maxlength="1">
-                <input type="text" id="code2" @input="nextInput(3)" placeholder="•" maxlength="1">
-                <input type="text" id="code3" @input="nextInput(4)" placeholder="•" maxlength="1">
-                <input type="text" id="code4" @input="nextInput('enter')" placeholder="•" maxlength="1">
+                <input type="number" id="code1" @input="nextInput(2)" placeholder="•" maxlength="1">
+                <input type="number" id="code2" @input="nextInput(3)" placeholder="•" maxlength="1">
+                <input type="number" id="code3" @input="nextInput(4)" placeholder="•" maxlength="1">
+                <input type="number" id="code4" @input="nextInput('enter')" placeholder="•" maxlength="1">
             </div>
             <button class="bg-[#2c50cc] text-white text-base w-[300px] h-[50px] font-bold rounded-lg"
                 @click="sendCode">{{ sendCodeValue ? 'Войти' : 'Позвонить'
