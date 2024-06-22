@@ -24,8 +24,9 @@
                     @keyup.delete="prevInput(3)" placeholder="•" maxlength="1">
             </div>
             <button class="bg-[#2c50cc] text-white text-base w-[300px] h-[50px] font-bold rounded-lg"
-                @click="sendCode">{{ sendCodeValue ? 'Войти' : 'Позвонить'
-                }}</button>
+                @click="sendCode">{{ sendCodeValue ? 'Войти' : 'Позвонить' }}
+            </button>
+
             <div class="flex w-[300px] justify-between items-center [&>hr]:w-full gap-3 [&>hr]:h-[5px]">
                 <hr>
                 <span class="text-base w-full whitespace-nowrap">Войдите с помощью</span>
@@ -53,6 +54,13 @@ import { onMounted, ref } from 'vue';
 import IMask from 'imask';
 const phoneInput = ref(null);
 const sendCodeValue = ref(false);
+import * as VKID from '@vkid/sdk';
+
+VKID.Config.set({
+    appId: 80087,
+    redirectUrl: 'https://train-for-jun.vercel.app/',
+    state: 'vkid-sdk',
+})
 
 onMounted(() => {
     const mask = IMask(phoneInput.value, {

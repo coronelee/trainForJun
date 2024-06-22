@@ -11,6 +11,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@vkid/sdk": "^1.1.0",
     "imask": "^7.6.1",
     "vue": "^3.4.29",
     "vue3-telegram-login": "^1.1.0"
