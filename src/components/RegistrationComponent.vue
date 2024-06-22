@@ -14,11 +14,14 @@
             </div>
             <div class="flex gap-2  [&>input]:w-[50px] [&>input]:h-[50px] juctify-center items-center [&>input]:border-b [&>input]:border-gray-900 [&>input]:outline-none [&>input]:text-center"
                 v-if="sendCodeValue">
-                <input type="text" inputmode="numeric" id="code1" @input="nextInput(2)" placeholder="•" maxlength="1">
-                <input type="text" inputmode="numeric" id="code2" @input="nextInput(3)" placeholder="•" maxlength="1">
-                <input type="text" inputmode="numeric" id="code3" @input="nextInput(4)" placeholder="•" maxlength="1">
-                <input type="text" inputmode="numeric" id="code4" @input="nextInput('enter')" placeholder="•"
-                    maxlength="1">
+                <input type="text" inputmode="numeric" id="code1" @input="nextInput(2)" @keyup.delete="prevInput()"
+                    placeholder="•" maxlength="1">
+                <input type="text" inputmode="numeric" id="code2" @input="nextInput(3)" @keyup.delete="prevInput(1)"
+                    placeholder="•" maxlength="1">
+                <input type="text" inputmode="numeric" id="code3" @input="nextInput(4)" @keyup.delete="prevInput(2)"
+                    placeholder="•" maxlength="1">
+                <input type="text" inputmode="numeric" id="code4" @input="nextInput('enter')"
+                    @keyup.delete="prevInput(3)" placeholder="•" maxlength="1">
             </div>
             <button class="bg-[#2c50cc] text-white text-base w-[300px] h-[50px] font-bold rounded-lg"
                 @click="sendCode">{{ sendCodeValue ? 'Войти' : 'Позвонить'
@@ -66,6 +69,13 @@ const nextInput = (value) => {
         alert('code sent');
         return;
     }
+    const element = document.getElementById(`code${value}`);
+    if (element) {
+        element.focus();
+    }
+}
+
+const prevInput = (value) => {
     const element = document.getElementById(`code${value}`);
     if (element) {
         element.focus();
