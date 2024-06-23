@@ -1,60 +1,6 @@
 <template>
-    <div class="absolute h-full w-full  flex justify-center items-center px-3 backdrop-blur-sm  animate-[openModal_0.5s_ease-in-out]"
-        v-if="modalCreateTask">
-        <div
-            class="w-[500px] overflow-hidden p-3 relative bg-white bg-[#05f] rounded-xl flex gap-3 flex-col justify-start items-start drop-shadow-lg ">
-            <span class="text-2xl w-full">Создать задачу</span>
-            <span class="text-base text-[#999] w-full">Выберите одну из следующий категорий для вашего задания</span>
-            <form class="flex gap-3 flex-col mb-3 [&>span]:w-full [&>span]:flex [&>span]:gap-2 [&>span]:items-center">
-                <span>
-                    <input type="radio" id="SEQ" name="type" value="SEQ">
-                    <label for="SEQ">
-                        SEQ (последовательность)
-                    </label>
-                </span>
-                <span>
-                    <input type="radio" id="task" name="type" value="task">
-                    <label for="task">
-                        TASK (задача)
-                    </label>
-                </span><span>
-                    <input type="radio" id="userStory" name="type" value="userStory">
-                    <label for="userStory">
-                        USER STORY (пользовательская история)
-                    </label>
-                </span><span>
-                    <input type="radio" id="code" name="type" value="code">
-                    <label for="code">
-                        CODE (код)
-                    </label>
-                </span><span>
-                    <input type="radio" id="userFlow" name="type" value="userFlow">
-                    <label for="userFlow">
-                        USER FLOW (поток пользователя)
-                    </label>
-                </span><span>
-                    <input type="radio" id="erd" name="type" value="erd">
-                    <label for="erd">
-                        ERD (схема базы данных)
-                    </label>
-                </span><span>
-                    <input type="radio" id="arch" name="type" value="arch">
-                    <label for="arch">
-                        ARCH (архитектура)
-                    </label>
-                </span>
-            </form>
-            <div class="absolute bottom-0 left-0 bg-[#f3f5f7] h-[50px] w-full flex gap-3 justify-end px-3 items-center
-            [&>button]:px-3 [&>button]:py-1 [&>button]:rounded-lg">
-                <button class="bg-white" @click="modalCreateTaskOpen">
-                    Отмена
-                </button>
-                <button class="bg-[#05f] text-white">
-                    Создать
-                </button>
-            </div>
-        </div>
-    </div>
+    <ModalWindowSelectTypeComponent :editSelectType="editSelectType" :modalCreateTaskOpen="modalCreateTaskOpen"
+        :createTask="createTask" v-if="modalCreateTask" />
     <div class="w-full  bg-gray-100 p-12 flex gap-8 flex-col justify-start items-center ">
         <div class="w-full h-[40px] flex justify-between  [&>div]:gap-3.5 [&>div>*]:items-center ">
             <div class="flex">
@@ -118,12 +64,15 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted, computed } from "vue";
 import AnswerComponent from "./AnswerComponent.vue";
+import ModalWindowSelectTypeComponent from "./CreateTaskComponents/ModalWindowSelectTypeComponent.vue";
 const name = ref('Bogomdan K.');
 const modalCreateTask = ref(false);
 const modalCreateTaskOpen = () => {
     modalCreateTask.value = !modalCreateTask.value
 }
+const createTask = () => {
 
+}
 </script>

@@ -14,8 +14,9 @@
 import HeaderComponent from './components/global/HeaderComponent.vue'
 import RegistrationComponent from './components/RegistrationComponent.vue'
 import HomeComponent from './components/HomeComponent.vue'
-import CodeCreateComponent from './components/CreateTaskComponents/CodeCreateComponent.vue'
+import CodeTaskComponent from './components/taskComponents/CodeTaskComponent.vue'
 import { ref, computed } from "vue";
+import CodeTaskComponentVue from './components/taskComponents/CodeTaskComponent.vue';
 
 const hamburger = ref(false);
 
@@ -27,7 +28,8 @@ const openHamburger = () => {
 
 const routes = {
   '/registration': RegistrationComponent,
-  '/home': HomeComponent
+  '/home': HomeComponent,
+  '/code': CodeTaskComponent
 }
 const currentView = computed(() => {
   return routes[currentPath.value.slice(1) || '/'] || RegistrationComponent

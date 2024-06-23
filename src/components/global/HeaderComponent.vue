@@ -1,7 +1,7 @@
 <template>
     <header
         class="w-full font-nunito_bold h-[75px] z-10 bg-white flex justify-between items-center px-12 max-[600px]:px-5 border-b border-gray-300">
-        <img src="/logo.png" alt="" class="h-[75px]">
+        <img src="/logo.png" alt="" class="h-[75px]" @click="goToHome">
         <div
             class="flex gap-10 font-bold max-[600px]:hidden
         [&>button:hover>div]:w-[100%]
@@ -40,6 +40,9 @@ const props = defineProps({
     openHamburger: Function
 })
 
+const goToHome = () => {
+    window.location.href = '#/home'
+}
 
 </script>
 
