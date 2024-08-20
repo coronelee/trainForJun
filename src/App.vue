@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="w-screen h-screen flex flex-col overflow-x-hidden font-nunito_regular">
     <HeaderComponent :openHamburger="openHamburger" />
-    <component :is="TaskManagmentComponent" />
+    <component :is="UserFlowComponent" />
     <div v-if="hamburger" class="w-screen h-screen bg-[#fffce] gap-9 backdrop-blur fixed left-0 bottom-0 right-0 flex flex-col justify-center items-center
       [&>a]:text-[#6d6d6d] [&>a]:text-2xl [&>a]:font-bold [&>a]:transition-all [&>a]:duration-300">
       <a href="">Контакты</a><a href="">Поддержка</a><a href="">О нас</a>
@@ -16,6 +16,7 @@ import RegistrationComponent from './components/RegistrationComponent.vue'
 import HomeComponent from './components/HomeComponent.vue'
 import CodeTaskComponent from './components/taskComponents/CodeTaskComponent.vue'
 import TaskManagmentComponent from './components/taskComponents/TaskManagmentComponent.vue'
+import UserFlowComponent from './components/taskComponents/UserFlowComponent.vue'
 import { ref, computed } from "vue";
 import CodeTaskComponentVue from './components/taskComponents/CodeTaskComponent.vue';
 
