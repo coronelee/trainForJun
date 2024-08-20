@@ -12,7 +12,9 @@
   },
   "dependencies": {
     "@vkid/sdk": "^1.1.0",
+    "highlight.js": "^11.10.0",
     "imask": "^7.6.1",
+    "prismjs": "^1.29.0",
     "vue": "^3.4.29",
     "vue3-telegram-login": "^1.1.0",
     "vuex": "^4.1.0"

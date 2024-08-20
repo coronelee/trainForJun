@@ -53,7 +53,7 @@
 
             <div class="absolute bottom-0 left-0 bg-[#f3f5f7] h-[50px] w-full flex gap-3 justify-end px-3 items-center
             [&>button]:px-3 [&>button]:py-1 [&>button]:rounded-lg">
-                <button class="bg-white" @click="modalCreateTaskOpen">
+                <button class="bg-white" @click="modalCreateOpen">
                     Отмена
                 </button>
                 <button class="bg-[#05f] text-white" @click="next">
@@ -68,7 +68,7 @@
 
 <script setup>
 const props = defineProps({
-    modalCreateTaskOpen: Function,
+    modalCreateOpen: Function,
     createTask: Function,
 })
 

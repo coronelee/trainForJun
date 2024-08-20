@@ -1,5 +1,5 @@
 <template>
-    <ModalWindowSelectTypeComponent :editSelectType="editSelectType" :modalCreateTaskOpen="modalCreateTaskOpen"
+    <ModalWindowSelectTypeComponent :editSelectType="editSelectType" :modalCreateOpen="modalCreateOpen"
         :createTask="createTask" v-if="modalCreateTask" />
     <div class="w-full  bg-gray-100 p-12 flex gap-8 flex-col justify-start items-center ">
         <div class="w-full h-[40px] flex justify-between  [&>div]:gap-3.5 [&>div>*]:items-center ">
@@ -18,8 +18,12 @@
                 <button class="border-[#05f] hover:text-white hover:bg-[#05f]  bg-[#f8f9fb] text-[#05f]">
                     Свободный режим
                 </button>
+                <button class="border-[#05f] hover:text-white hover:bg-[#05f]  bg-[#f8f9fb] text-[#05f]"
+                    @click="modalCreateOpen('room')">
+                    Создать комнату
+                </button>
                 <button class="bg-[#05f] text-white hover:border-[#05f] hover:bg-[#f8f9fb] hover:text-[#05f]"
-                    @click="modalCreateTaskOpen">
+                    @click="modalCreateOpen('task')">
                     Создать задачу
                 </button>
             </div>
@@ -36,7 +40,7 @@
                             fill="#05f" />
                     </svg>
                 </button>
-                <button id="addTask" @click="modalCreateTaskOpen"
+                <button id="addTask" @click="modalCreateOpen"
                     class="bg-[#05f] text-white hover:border-[#05f] hover:bg-[#f8f9fb] hover:text-[#05f] [&:hover>svg>g>path]:stroke-[#05f] [&:hover>svg>g>path]:transition &[&:hover>svg>g>path]:duration-500">
                     <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g id="SVGRepo_bgCarrier" stroke-width="0" />
@@ -69,7 +73,7 @@ import AnswerComponent from "./AnswerComponent.vue";
 import ModalWindowSelectTypeComponent from "./CreateTaskComponents/ModalWindowSelectTypeComponent.vue";
 const name = ref('Bogomdan K.');
 const modalCreateTask = ref(false);
-const modalCreateTaskOpen = () => {
+const modalCreateOpen = (type) => {
     modalCreateTask.value = !modalCreateTask.value
 }
 const createTask = () => {
