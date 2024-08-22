@@ -20,9 +20,9 @@
 
 
                 <div v-for="i in items" :key="i" :id="i.id" draggable="true" class="draggable w-24 h-24 bg-[#2C50CC]">
-                    <span>
-                        {{ i.name }}
-                    </span>
+
+                    <input type="text" :value="i.name" disabled class="w-full bg-transparent text-center">
+
                 </div>
 
                 <!-- <div class="w-48 h-24 bg-[#2C50CC] " id="array">
@@ -60,6 +60,7 @@ const items = ref([
 ]);
 
 
+let zone = ref(null)
 
 onMounted(() => {
     const menuItems = document.getElementById('menuItems');
@@ -70,6 +71,9 @@ onMounted(() => {
         if (target.classList.contains('draggable')) {
             e.dataTransfer.setData('text', target.id);
         }
+        zone.value = target.parentElement.id
+        // console.log(zone.value)
+
     });
 
     workPlace.addEventListener('dragover', (e) => {
@@ -82,32 +86,100 @@ onMounted(() => {
         const draggableId = e.dataTransfer.getData('text');
         const draggable = document.getElementById(draggableId);
 
-        // Переместить объект в блок workPlace
         workPlace.appendChild(draggable);
 
-        // Позиционировать объект относительно родительского элемента
+        const target = e.target;
+        zone.value = target.id
+        // console.log(zone.value)
+
         const rect = workPlace.getBoundingClientRect();
         draggable.style.top = `${e.clientY - rect.top - draggable.offsetHeight / 2}px`;
         draggable.style.left = `${e.clientX - rect.left - draggable.offsetHeight / 2}px`;
         draggable.style.position = 'absolute';
 
-        // Добавить обработчики событий для перемещенного элемента
         draggable.addEventListener('dragstart', (e) => {
             e.dataTransfer.setData('text', draggable.id);
+            // console.log(e.dataTransfer.getData('text'));
         });
 
         draggable.addEventListener('dragover', (e) => {
             e.preventDefault();
         });
 
+        draggable.addEventListener('mousedown', (e) => {
+            draggable.removeEventListener('dragover', (e) => { })
+            const inputChild = draggable.childNodes[0];
+            inputChild.classList.remove('border-b', 'border-white', 'bg-[#ffffff33]')
+            inputChild.disabled = true
+            if (e.button === 2) {
+                const modalWindow = document.createElement('div');
+                modalWindow.id = 'modalWindow';
+                modalWindow.classList.add('absolute', 'top-full', 'left-full', 'w-24', 'h-24', 'bg-red-500', 'z-10');
+                modalWindow.innerHTML = ``
+
+                const buttonDeleteModal = document.createElement('button');
+                buttonDeleteModal.id = 'buttonDeleteModal';
+                buttonDeleteModal.classList.add('top-0', 'left-0', 'w-24', 'h-12', 'bg-red-100', 'z-10', 'hover:bg-red-300');
+                buttonDeleteModal.innerHTML = `delete`
+
+                const buttonEditModal = document.createElement('button');
+                buttonEditModal.id = 'buttonDeleteModal';
+                buttonEditModal.classList.add('top-0', 'left-0', 'w-24', 'h-12', 'bg-red-100', 'z-10', 'hover:bg-red-300');
+                buttonEditModal.innerHTML = `edit`
+
+                draggable.appendChild(modalWindow)
+                modalWindow.appendChild(buttonDeleteModal)
+                modalWindow.appendChild(buttonEditModal)
+
+                buttonEditModal.addEventListener('click', (e) => {
+
+
+                    const editSizeDraggble = document.createElement('div');
+                    editSizeDraggble.id = 'editSizeDraggble';
+                    editSizeDraggble.classList.add('absolute', 'top-full', 'left-full', 'w-4', 'h-4', 'bg-white', 'z-10');
+                    draggable.appendChild(editSizeDraggble)
+
+                    const inputChild = draggable.childNodes[0];
+                    inputChild.disabled = false
+                    inputChild.classList.add('border-b', 'border-white', 'bg-[#ffffff33]')
+
+                    draggable.removeChild(modalWindow);
+
+                    editSizeDraggble.addEventListener('mousedown', (e) => {
+                        const oldCoord = [e.clientX, e.clientY];
+                        const oldSize = [draggable.offsetWidth, draggable.offsetHeight];
+                        const handleMouseMove = (e) => {
+                            draggable.style.width = `${e.clientX - oldCoord[0] + oldSize[0]}px`;
+                            draggable.style.height = `${e.clientY - oldCoord[1] + oldSize[1]}px`;
+                            draggable.style.position = 'absolute';
+                            // console.log('client' + e.clientX, e.clientY, 'old' + oldCoord[0], oldCoord[1], 'draggable' + draggable.offsetWidth, draggable.offsetHeight);
+                            console.log(e.clientX, oldCoord[0], oldSize[0])
+                        };
+
+                        const handleMouseUp = () => {
+                            editSizeDraggble.removeEventListener('mousemove', handleMouseMove);
+                            editSizeDraggble.removeEventListener('mouseup', handleMouseUp);
+                        };
+
+                        editSizeDraggble.addEventListener('mousemove', handleMouseMove);
+                        editSizeDraggble.addEventListener('mouseup', handleMouseUp);
+                    });
+                })
+                buttonDeleteModal.addEventListener('mousedown', (e) => {
+                    draggable.removeChild(modalWindow);
+                    workPlace.removeChild(draggable);
+                })
+            }
+        })
+
         draggable.addEventListener('drop', (e) => {
             e.preventDefault();
             const rect = workPlace.getBoundingClientRect();
             draggable.style.top = `${e.clientY - rect.top - draggable.offsetHeight / 2}px`;
             draggable.style.left = `${e.clientX - rect.left - draggable.offsetHeight / 2}px`;
+            workPlace.removeChild(draggable);
         });
         restoreMenuItems()
-
     });
 });
 
@@ -119,15 +191,26 @@ function restoreMenuItems() {
 
     draggableElements.forEach((element) => {
         const menuItem = menuItems.querySelector(`#${element.id}`);
+        const workPlaceItems = workPlace.querySelectorAll('.droppable');
+
+        console.log(element.parentElement.id)
         if (!menuItem) {
             const newMenuItem = element.cloneNode(true);
             newMenuItem.style.top = '';
             newMenuItem.style.left = '';
             newMenuItem.style.position = '';
+            // workPlace.removeChild(newMenuItem);
             menuItems.appendChild(newMenuItem);
         }
+
+        workPlaceItems.forEach((workPlaceItem) => {
+            if (workPlaceItem.contains(element)) {
+                workPlaceItem.removeChild(element);
+            }
+        });
     });
 }
+
 </script>
 
 <style scoped>
@@ -136,7 +219,7 @@ function restoreMenuItems() {
 }
 
 #start {
-    clip-path: circle(50% at 50% 50%);
+    border-radius: 50%;
 }
 
 #array {
