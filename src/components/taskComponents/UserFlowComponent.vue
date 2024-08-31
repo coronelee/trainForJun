@@ -20,9 +20,10 @@
                 <div class="z-10 left-[10px] top-[calc(50%-100px)] absolute w-[100px] h-[200px] bg-[#ffffffcc] rounded-xl border-2 border-white"
                     id="menu">
                 </div>
-                <div class="droppable w-[10000%] bg-[url('/point.svg')]  bg-repeat h-[10000%] absolute left-[-4955%] top-[-4955%] bg-[#d7cde9] flex justify-center items-center"
+                <div class="droppable scale-1 w-[10000%] bg-[url('/point.svg')]  bg-repeat h-[10000%] absolute left-[-4955%] top-[-4955%] bg-[#d7cde9] flex justify-center items-center"
                     id="workBlock" draggable="true">
-                    <div class="w-12 h-12 bg-[#2C50CC] absolute left-[50%] top-[50%]" draggable="true"></div>
+                    <div class="w-12 h-12 bg-[#ffffff33] absolute left-[50%] top-[50%] rounded-xl border-2 border-white"
+                        draggable="true"></div>
                 </div>
             </div>
         </div>
@@ -57,12 +58,14 @@ onMounted(() => {
     workBlock.addEventListener('mousewheel', (event) => {
         event.preventDefault();
         if (event.wheelDelta > 0) {
-            scale.value = scale.value * 1.5;
+            scale.value = scale.value + 0.1;
             workBlock.style.transform = workBlock.style.WebkitTransform = workBlock.style.MsTransform = 'scale(' + scale.value + ')';
         }
         if (event.wheelDelta < 0) {
-            scale.value = scale.value / 1.5;
+            if (scale.value <= 0.2) return
+            scale.value = scale.value - 0.1;
             workBlock.style.transform = workBlock.style.WebkitTransform = workBlock.style.MsTransform = 'scale(' + scale.value + ')';
+
         }
     })
 
@@ -98,15 +101,26 @@ onMounted(() => {
 
         workBlock.addEventListener('drop', (event) => {
             const scaledSizeWorkBlock = workBlock.getBoundingClientRect();
-            const x = event.clientX - scaledSizeWorkBlock.left - childElement.offsetWidth / 2;
-            const y = event.clientY - scaledSizeWorkBlock.top - childElement.offsetHeight / 2;
-            childElement.style.top = `${y}px`;
-            childElement.style.left = `${x}px`;
+            const transform = workBlock.style.transform; // Исправлено на transform вместо MsTransform
 
+            const scaleFactor = transform.match(/scale\((\d+(?:\.\d+)?),\s*(\d+(?:\.\d+)?)\)/);
 
-            console.log(x, y)
-            console.log('rect ' + sizeWorkBlock.left, sizeWorkBlock.top)
-            console.log('client ' + event.clientX, event.clientY)
+            if (scaleFactor) {
+                const scaleX = parseFloat(scaleFactor[1]);
+                const scaleY = parseFloat(scaleFactor[2]);
+
+                const x = (event.clientX - scaledSizeWorkBlock.left - childElement.offsetWidth / 2) / scaleX;
+                const y = (event.clientY - scaledSizeWorkBlock.top - childElement.offsetHeight / 2) / scaleY;
+
+                childElement.style.top = `${y}px`;
+                childElement.style.left = `${x}px`;
+            } else {
+                const x = event.clientX - scaledSizeWorkBlock.left - childElement.offsetWidth / 2;
+                const y = event.clientY - scaledSizeWorkBlock.top - childElement.offsetHeight / 2;
+
+                childElement.style.top = `${y}px`;
+                childElement.style.left = `${x}px`;
+            }
         });
     }
 
